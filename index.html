@@ -771,37 +771,37 @@
 
     <div class="section-title">— FEATURES</div>
     <div class="features" id="featureGrid">
-      <div class="feature-card neon-blue" onclick="ripple(this); showToast('Opening Translator...')">
+      <div class="feature-card neon-blue" onclick="ripple(this); sendCommand('/translate', 'Tarjimon')">
         <span class="feature-icon">🌐</span>
         <div class="feature-name">Translator</div>
         <div class="feature-desc">8 language support</div>
         <div class="feature-arrow">↗</div>
       </div>
-      <div class="feature-card neon-purple" onclick="ripple(this); showToast('Opening QR Generator...')">
+      <div class="feature-card neon-purple" onclick="ripple(this); sendCommand('/qr', 'QR Generator')">
         <span class="feature-icon">📷</span>
         <div class="feature-name">QR Code</div>
         <div class="feature-desc">Instant generator</div>
         <div class="feature-arrow">↗</div>
       </div>
-      <div class="feature-card neon-pink" onclick="ripple(this); showToast('Opening BMI Calculator...')">
+      <div class="feature-card neon-pink" onclick="ripple(this); sendCommand('/bmi', 'BMI Kalkulyator')">
         <span class="feature-icon">⚖️</span>
         <div class="feature-name">BMI Calc</div>
         <div class="feature-desc">Health tracker</div>
         <div class="feature-arrow">↗</div>
       </div>
-      <div class="feature-card neon-green" onclick="ripple(this); showToast('Opening Scientific Calc...')">
+      <div class="feature-card neon-green" onclick="ripple(this); sendCommand('/calc', 'Ilmiy Kalkulyator')">
         <span class="feature-icon">🔬</span>
         <div class="feature-name">Scientific</div>
         <div class="feature-desc">Advanced math</div>
         <div class="feature-arrow">↗</div>
       </div>
-      <div class="feature-card neon-blue" onclick="ripple(this); showToast('Opening TTS...')">
+      <div class="feature-card neon-blue" onclick="ripple(this); sendCommand('/tts', 'Text → Ovoz')">
         <span class="feature-icon">🔊</span>
         <div class="feature-name">Text→Voice</div>
         <div class="feature-desc">AI speech</div>
         <div class="feature-arrow">↗</div>
       </div>
-      <div class="feature-card neon-purple" onclick="ripple(this); showToast('Opening Watermark...')">
+      <div class="feature-card neon-purple" onclick="ripple(this); sendCommand('/watermark', 'Watermark')">
         <span class="feature-icon">✨</span>
         <div class="feature-name">Watermark</div>
         <div class="feature-desc">Animated GIF</div>
@@ -1129,6 +1129,20 @@ function copyRefLink() {
   if (tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
 }
 
+// ── SEND COMMAND TO BOT ──
+function sendCommand(command, label) {
+  showToast('⏳ ' + label + ' yuklanmoqda...');
+  setTimeout(() => {
+    if (tg && tg.sendData) {
+      tg.sendData(command);
+    } else if (tg && tg.openTelegramLink) {
+      tg.openTelegramLink('https://t.me/kerakli_boladi_bot?start=' + command.replace('/', ''));
+    } else {
+      showToast('❌ Iltimos botni Telegramda oching!');
+    }
+  }, 400);
+}
+
 // ── START ──
 createParticles();
 initCanvas();
@@ -1136,3 +1150,4 @@ runIntro();
 </script>
 </body>
 </html>
+
